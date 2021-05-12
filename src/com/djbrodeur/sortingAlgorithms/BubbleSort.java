@@ -1,46 +1,40 @@
 package com.djbrodeur.sortingAlgorithms;
 
 import com.djbrodeur.classes.Column;
-
-import java.util.Arrays;
-import java.util.concurrent.TimeUnit;
+import com.djbrodeur.classes.Utilities;
 
 public class BubbleSort implements SortingAlgorithm {
 
     private String name;
+    int numberOfIterations;
 
     public BubbleSort(){
+        numberOfIterations = 0;
         this.name = "Bubble Sort Algorithm";
     }
 
     public String getName() {
         return this.name;
     }
-    public void runAlgorithm(Column[] valueArray){
-        waitOneSecond();
-        Arrays.sort(valueArray);
-        waitOneSecond();
+
+    public int runAlgorithm(Column[] valueArray){
+        Utilities.waitOneSecond();
+        sort(valueArray);
+        return numberOfIterations;
     }
 
-    private void waitOneSecond() {
-        try {
-            TimeUnit.SECONDS.sleep(1);
-        } catch (Exception e){
-            // Pass
+    private void sort(Column[] valueArray) {
+        int numberOfElement = valueArray.length;
+        Column temp;
+        for(int i = 0; i < numberOfElement; i++){
+            for(int j = 1; j < numberOfElement; j++){
+                if(valueArray[j - 1].isGreaterThan(valueArray[j])){
+                    Utilities.swapElementOfArray(valueArray, j-1, j);
+                    Utilities.waitHalfSecond();
+                    Utilities.showGraphic(valueArray);
+                }
+                this.numberOfIterations++;
+            }
         }
-    }
-
-    public void showGraphic(Column[] valueArray) {
-        String graphic = graphicStringBuilder(valueArray);
-        System.out.println(graphic);
-    }
-
-    private String graphicStringBuilder(Column[] valueArray) {
-        String stringBuilt = "| ";
-        for(Column c : valueArray){
-            stringBuilt += c.getValue();
-            stringBuilt += " | ";
-        }
-        return stringBuilt;
     }
 }

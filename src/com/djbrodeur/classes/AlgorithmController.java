@@ -13,28 +13,15 @@ public class AlgorithmController {
 
     public void runAlgorithm(SortingAlgorithm algorithm) {
         System.out.println("This is the unsorted (initial) array of value:");
-        showGraphic();
-        algorithm.runAlgorithm(valueArray);
+        Utilities.showGraphic(valueArray);
+        int numberOfIterations = algorithm.runAlgorithm(valueArray);
         System.out.println("This is the sorted (final) array of value:");
-        showGraphic();
+        Utilities.showGraphic(valueArray);
+        System.out.println("It took " + numberOfIterations + " manipulations to complete the sort");
     }
 
     public AlgorithmController(){
         valueArray = generateValueArray();
-    }
-
-    public void showGraphic() {
-        String graphic = graphicStringBuilder();
-        System.out.println(graphic);
-    }
-
-    private String graphicStringBuilder() {
-        String stringBuilt = "| ";
-        for(Column c : valueArray){
-            stringBuilt += c.getValue();
-            stringBuilt += " | ";
-        }
-        return stringBuilt;
     }
 
     private Column[] generateValueArray() {
@@ -42,11 +29,11 @@ public class AlgorithmController {
         for(int i = 0; i < MAX_NUMBER_OF_VALUE; i++){
             row[i] = new Column(i + 1);
         }
-        row = shuffle(row);
+        row = shuffleArrayOfValue(row);
         return row;
     }
 
-    private Column[] shuffle(Column[] arrayToBeShuffled) {
+    private Column[] shuffleArrayOfValue(Column[] arrayToBeShuffled) {
         List<Column> intList = Arrays.asList(arrayToBeShuffled);
         Collections.shuffle(intList);
         intList.toArray(arrayToBeShuffled);

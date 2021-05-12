@@ -4,6 +4,7 @@ import com.djbrodeur.classes.Column;
 
 public interface SortingAlgorithm {
 
-    public void runAlgorithm(Column[] valueArray);
+    public String getName();
+    public int runAlgorithm(Column[] valueArray);
 
 }
